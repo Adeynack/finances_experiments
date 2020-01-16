@@ -1,0 +1,27 @@
+{
+  "name": "core",
+  "private": true,
+  "version": "1.0.0",
+  "description": "This is the main API of krasserstoff.com and includes both public shop apis and apis for internal use in administration tools.",
+  "directories": {
+    "doc": "doc",
+    "lib": "lib"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "speccy": "^0.9.0"
+  },
+  "scripts": {
+    "lint-api": "speccy lint docs/api/finances.openapi.yaml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KrasserStoff/core.git"
+  },
+  "author": "nerdgeschoss GmbH",
+  "license": "SEE LICENSE IN README.md",
+  "bugs": {
+    "url": "https://github.com/KrasserStoff/core/issues"
+  },
+  "homepage": "https://github.com/KrasserStoff/core#readme"
+}

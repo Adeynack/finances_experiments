@@ -1,0 +1,326 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Finance API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/v1",
+      "description": "Local Server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "books",
+      "description": "Book management."
+    }
+  ],
+  "paths": {
+    "/books": {
+      "get": {
+        "summary": "List the books to which the current user has access to.",
+        "tags": [
+          "books"
+        ],
+        "operationId": "ListBooks",
+        "responses": {
+          "200": {
+            "description": "List the books to which the current user has access to.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "owner_id"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true,
+                        "example": "238bfbb1-55f6-4614-8d7f-26edde264525"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Dave's Book"
+                      },
+                      "owner_id": {
+                        "description": "ID of the owner of the book.",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "54332d2f-2a60-4e34-b4a7-72fb7167e1a0"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new book.",
+        "tags": [
+          "books"
+        ],
+        "operationId": "CreateBook",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "owner_id"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "readOnly": true,
+                    "example": "238bfbb1-55f6-4614-8d7f-26edde264525"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Dave's Book"
+                  },
+                  "owner_id": {
+                    "description": "ID of the owner of the book.",
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "54332d2f-2a60-4e34-b4a7-72fb7167e1a0"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Book was created. Its representation is returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "owner_id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "readOnly": true,
+                      "example": "238bfbb1-55f6-4614-8d7f-26edde264525"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Dave's Book"
+                    },
+                    "owner_id": {
+                      "description": "ID of the owner of the book.",
+                      "type": "string",
+                      "format": "uuid",
+                      "example": "54332d2f-2a60-4e34-b4a7-72fb7167e1a0"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/{book_id}": {
+      "parameters": [
+        {
+          "description": "The book's identifier.",
+          "name": "book_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "example": "238bfbb1-55f6-4614-8d7f-26edde264525"
+        }
+      ],
+      "get": {
+        "summary": "Get information on one book.",
+        "tags": [
+          "books"
+        ],
+        "operationId": "GetBook",
+        "responses": {
+          "200": {
+            "description": "Information on the specified book.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "owner_id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "readOnly": true,
+                      "example": "238bfbb1-55f6-4614-8d7f-26edde264525"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Dave's Book"
+                    },
+                    "owner_id": {
+                      "description": "ID of the owner of the book.",
+                      "type": "string",
+                      "format": "uuid",
+                      "example": "54332d2f-2a60-4e34-b4a7-72fb7167e1a0"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update properties of a book.",
+        "tags": [
+          "books"
+        ],
+        "operationId": "UpdateBook",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "owner_id"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true,
+                        "example": "238bfbb1-55f6-4614-8d7f-26edde264525"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Dave's Book"
+                      },
+                      "owner_id": {
+                        "description": "ID of the owner of the book.",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "54332d2f-2a60-4e34-b4a7-72fb7167e1a0"
+                      }
+                    }
+                  }
+                ],
+                "required": []
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Book is updated. Its representation is returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "owner_id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "readOnly": true,
+                      "example": "238bfbb1-55f6-4614-8d7f-26edde264525"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Dave's Book"
+                    },
+                    "owner_id": {
+                      "description": "ID of the owner of the book.",
+                      "type": "string",
+                      "format": "uuid",
+                      "example": "54332d2f-2a60-4e34-b4a7-72fb7167e1a0"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a book.",
+        "tags": [
+          "books"
+        ],
+        "operationId": "DeleteBook",
+        "responses": {
+          "204": {
+            "description": "The book is deleted. No content returned."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "BookID": {
+        "description": "The book's identifier.",
+        "name": "book_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "example": "238bfbb1-55f6-4614-8d7f-26edde264525"
+      }
+    },
+    "schemas": {
+      "Book": {
+        "type": "object",
+        "required": [
+          "name",
+          "owner_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "example": "238bfbb1-55f6-4614-8d7f-26edde264525"
+          },
+          "name": {
+            "type": "string",
+            "example": "Dave's Book"
+          },
+          "owner_id": {
+            "description": "ID of the owner of the book.",
+            "type": "string",
+            "format": "uuid",
+            "example": "54332d2f-2a60-4e34-b4a7-72fb7167e1a0"
+          }
+        }
+      }
+    }
+  }
+}
