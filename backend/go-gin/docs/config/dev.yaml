@@ -1,0 +1,90 @@
+#
+# DEVELOPMENT
+#
+profile: dev
+
+# Used font: http://patorjk.com/software/taag/#p=display&f=Bloody&t=Dev
+banner: |-
+  .                                                          .
+  .           ▓█████▄ ▓█████ ██▒   █▓                        .
+  .           ▒██▀ ██▌▓█   ▀▓██░   █▒                        .
+  .           ░██   █▌▒███   ▓██  █▒░                        .
+  .           ░▓█▄   ▌▒▓█  ▄  ▒██ █░░                        .
+  .           ░▒████▓ ░▒████▒  ▒▀█░                          .
+  .           ▒▒▓  ▒ ░░ ▒░ ░  ░ ▐░                           .
+  .           ░ ▒  ▒  ░ ░  ░  ░ ░░                           .
+  .           ░ ░  ░    ░       ░░                           .
+  .           ░       ░  ░     ░                             .
+  .           ░                 ░                            .
+  .                                                          .
+  . FINANCES-SERVICE running in `development` mode           .
+  .                                                          .
+
+# Configure how the application logs information
+log:
+  # Formatter: json | text
+  # DEFAULT: text
+  formatter: text
+
+  # Logger's base level (as parsed by `logrus`)
+  # Available levels: debug | info | warning | error | fatal | panic
+  level: debug
+
+# Controlling the GIN framework and server
+gin:
+  # Listening port for HTTP requests.
+  # DEFAULT: 3000
+  port: 3000
+
+  # In which mode to execute the "GIN" server.
+  # Available modes: debug | release | test
+  # DEFAULT: debug
+  mode: debug
+
+  # Log all requests
+  # DEFAULT: false
+  log_requests: true
+
+# Database connection and configuration
+database:
+  # Database connection (all mandatory)
+  hostname: localhost
+  port: 5433
+  username: postgres
+  password: postgres
+  database: finances-dev
+  schema: finances
+
+  # Options to pass as query-URL at the end of the connection string.
+  options:
+    sslmode: disable
+
+  # Check queries on initialization. Usually just to be activated in development mode.
+  # DEFAULT: false
+  check_queries_on_init: true
+
+  evolution:
+    # Should the automatic evolution of the database be executed at startup?
+    # MANDATORY
+    run_at_startup: true
+
+    # Folder in which to find the database evolution scripts.
+    # MANDATORY (if `run_at_startup` is true)
+    scripts_folders: docs/database_evolution
+
+    # Set to `true` to force the complete re-creation of the schema at startup (for DEV only)
+    # DEFAULT: false
+    recreate_schema: true
+    load_fixtures:
+      - docs/database_scripts/fixtures.dev.sql
+
+security:
+  authentication:
+    # Available modes:
+    #
+    #   prod      DEFAULT. Expects a token in the `Authentication` header to be present.
+    #
+    #   dev       Acts like `prod`, except when a `DEV_AUTH_USER_ID` header is present. When so,
+    #             uses the email in that header as the authenticated user, performing no additional
+    #             checks.
+    mode: dev

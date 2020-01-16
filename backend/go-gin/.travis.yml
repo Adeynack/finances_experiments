@@ -1,0 +1,10 @@
+# Help on this:
+# https://docs.travis-ci.com/user/getting-started/
+
+language: go
+
+go:
+  - '1.13.x'
+
+script:
+  - make ci-trigger
