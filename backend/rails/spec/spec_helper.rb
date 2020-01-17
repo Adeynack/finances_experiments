@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "factory_bot"
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class API::V1::BooksController < API::V1::APIController
   def index
     render json: Book.all.includes(:owner)

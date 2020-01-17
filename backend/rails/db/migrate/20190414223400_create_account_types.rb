@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAccountTypes < ActiveRecord::Migration[6.0]
   # Following instruction on enums from https://naturaily.com/blog/ruby-on-rails-enum
   def up

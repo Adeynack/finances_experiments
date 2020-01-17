@@ -52,7 +52,7 @@ Style/EmptyMethod:
   EnforcedStyle: expanded
 
 Style/FrozenStringLiteralComment:
-  Enabled: false
+  Enabled: true
 
 Style/MultilineBlockChain:
   Enabled: false

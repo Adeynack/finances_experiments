@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 joe = User.create! id: "54332d2f-2a60-4e34-b4a7-72fb7167e1a0",
                    email: "joe@example.com",
                    display_name: "Joe"
