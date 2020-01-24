@@ -1,8 +1,7 @@
 use std::convert::Infallible;
-use std::error::Error;
 use std::net::SocketAddr;
 
-use hyper::{Body, Request, Response, Server, StatusCode};
+use hyper::{Body, http, Request, Response, Server, StatusCode};
 use hyper::service::{make_service_fn, service_fn};
 
 #[tokio::main]
@@ -23,44 +22,66 @@ async fn main() {
 async fn handle(req: Request<Body>) -> Result<Response<Body>, Infallible> {
     println!("Request: {:#?}", req);
 
-    let mut path_parts = req.uri().path().split('/');
+    let mut parts = req.uri().path().split('/').filter(|p| p.len() > 0);
+    let mut response: Option<http::Result<Response<Body>>> = None;
 
-    let mut response: Option<Result<Response<Body>, dyn Error>> = None;
-
-    match path_parts.next() {
+    match parts.next() {
         Some("hello") => {
-            if let (Some(number), Some(name)) = (path_parts.next(), path_parts.next()) {
-                response = Some(handle_hello(&req, number, name));
+            if let Some(number) = parts.next() {
+                if let Some(name) = parts.next() {
+                    if let None = parts.next() { // ensure it was the last part of the path
+                        response = Some(handle_hello(&req, number, name));
+                    }
+                }
             }
         }
-        Some("bonjour") => { /* TODO */ }
-        _ => { /* NOOP */ }
+        Some("bonjour") => {
+            if let Some(first_part) = parts.next() {
+                if let Some(second_part) = parts.next() {
+                    response = Some(handle_bonjour(Some(first_part), second_part));
+                } else {
+                    response = Some(handle_bonjour(None, first_part));
+                }
+            }
+        }
+        _ => {}
     };
 
-//    response
-//        .unwrap(|| {
-//            Response::builder()
-//                .status(hyper::StatusCode::NOT_FOUND)
-//                .body(Body::from(format!("Path {} not found.", req.uri())))
-//        })
+    let response = match response {
+        Some(r) => r,
+        None => {
+            Response::builder()
+                .status(StatusCode::NOT_FOUND)
+                .body(Body::from(format!("Nothing found at {}", req.uri().path())))
+        }
+    };
 
-    Ok(Response::builder().status(StatusCode::OK).body(Body::from(format!("Hello!"))).unwrap())
+    Ok(response.unwrap())
 }
 
-fn handle_hello(req: &Request<Body>, number: &str, name: &str) -> Result<Response<Body>, dyn Error> {
-//    let number: u32 = match number.parse() {
-//        Ok(n) => n,
-//        Err(_) => {
-//            return Response::builder()
-//                .status(StatusCode::BAD_REQUEST)
-//                .header("x-you-suck", "true")
-//                .body(Body::from(format!("/hello/number/name : number needs to be an unsigned 32-bit integer value")))
-//        }
-//    };
-//
-//    let user_agent = req.headers().get("User-Agent").unwrap_or_else("");
-//
+fn handle_hello(req: &Request<Body>, number: &str, name: &str) -> http::Result<Response<Body>> {
+    let number: u32 = match number.parse() {
+        Ok(n) => n,
+        Err(_) => {
+            return Response::builder()
+                .status(StatusCode::BAD_REQUEST)
+                .header("x-you-failed", "oh so much")
+                .body(Body::from(format!("/hello/number/name : number needs to be an unsigned 32-bit integer value")));
+        }
+    };
+
+    let user_agent: &str = req.headers().get("User-Agent").map(|v| v.to_str().unwrap_or("")).unwrap_or("");
 
     Response::builder()
-        .body(Body::from(format!("Hello, number {}: {} from {}", number, name)))
+        .status(StatusCode::OK)
+        .body(Body::from(format!("Hello, number {}: {} from {}", number, name, user_agent)))
+}
+
+fn handle_bonjour(title: Option<&str>, name: &str) -> http::Result<Response<Body>> {
+    Response::builder()
+        .status(StatusCode::OK)
+        .body(Body::from(match title {
+            Some(title) => format!("Bonjour, {} {}", title, name),
+            None => format!("Bonjour, {}", name),
+        }))
 }
