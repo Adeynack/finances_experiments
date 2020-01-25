@@ -19,7 +19,7 @@ async fn main() {
     }
 }
 
-async fn handle(req: Request<Body>) -> Result<Response<Body>, Infallible> {
+async fn handle(req: Request<Body>) -> http::Result<Response<Body>> {
     println!("Request: {:#?}", req);
 
     let mut parts = req.uri().path().split('/').filter(|p| p.len() > 0);
@@ -47,16 +47,11 @@ async fn handle(req: Request<Body>) -> Result<Response<Body>, Infallible> {
         _ => {}
     };
 
-    let response = match response {
-        Some(r) => r,
-        None => {
-            Response::builder()
-                .status(StatusCode::NOT_FOUND)
-                .body(Body::from(format!("Nothing found at {}", req.uri().path())))
-        }
-    };
-
-    Ok(response.unwrap())
+    response.unwrap_or_else(|| {
+        Response::builder()
+            .status(StatusCode::NOT_FOUND)
+            .body(Body::from(format!("Nothing found at {}", req.uri().path())))
+    })
 }
 
 fn handle_hello(req: &Request<Body>, number: &str, name: &str) -> http::Result<Response<Body>> {
@@ -70,7 +65,9 @@ fn handle_hello(req: &Request<Body>, number: &str, name: &str) -> http::Result<R
         }
     };
 
-    let user_agent: &str = req.headers().get("User-Agent").map(|v| v.to_str().unwrap_or("")).unwrap_or("");
+    let user_agent: &str = req.headers().get("User-Agent")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("<unspecified>");
 
     Response::builder()
         .status(StatusCode::OK)
