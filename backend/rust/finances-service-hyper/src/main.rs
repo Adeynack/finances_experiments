@@ -13,6 +13,7 @@ async fn main() {
     });
 
     let server = Server::bind(&addr).serve(make_svc);
+    println!("listening at {}", addr);
 
     if let Err(e) = server.await {
         eprintln!("server error: {}", e);
@@ -38,7 +39,9 @@ async fn handle(req: Request<Body>) -> http::Result<Response<Body>> {
         Some("bonjour") => {
             if let Some(first_part) = parts.next() {
                 if let Some(second_part) = parts.next() {
-                    response = Some(handle_bonjour(Some(first_part), second_part));
+                    if let None = parts.next() {
+                        response = Some(handle_bonjour(Some(first_part), second_part).await);
+                    }
                 } else {
                     response = Some(handle_bonjour(None, first_part).await);
                 }

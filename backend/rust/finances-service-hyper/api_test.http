@@ -1,0 +1,54 @@
+###
+GET http://localhost:3030/
+Accept: application/json
+
+###
+GET http://localhost:3030/hello/NaN/bond
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 400, 'Response status was ' + response.status);
+});
+%}
+
+###
+GET http://localhost:3030/hello/42/bond
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, 'Response status was ' + response.status);
+  client.assert(response.body.startsWith('Hello, number 42: bond'), 'Response body was: ' + response.body);
+});
+%}
+
+###
+GET http://localhost:3030/bonjour/dave
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, 'Response status was ' + response.status);
+  client.assert(response.body === 'Bonjour, dave', 'Response body was: ' + response.body);
+});
+%}
+
+###
+GET http://localhost:3030/bonjour/mister/bond
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, 'Response status was ' + response.status);
+  client.assert(response.body === 'Bonjour, mister bond', 'Response body was: ' + response.body);
+});
+%}
+
+###
+GET http://localhost:3030/bonjour/mister/bond/no_longer_matching
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 404, 'Response status was ' + response.status);
+  client.assert(response.body === 'Nothing found at /bonjour/mister/bond/no_longer_matching', 'Response body was: ' + response.body);
+});
+%}
+
+###
