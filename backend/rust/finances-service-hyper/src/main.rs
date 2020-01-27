@@ -30,7 +30,7 @@ async fn handle(req: Request<Body>) -> http::Result<Response<Body>> {
             if let Some(number) = parts.next() {
                 if let Some(name) = parts.next() {
                     if let None = parts.next() { // ensure it was the last part of the path
-                        response = Some(handle_hello(&req, number, name));
+                        response = Some(handle_hello(&req, number, name).await);
                     }
                 }
             }
@@ -40,7 +40,7 @@ async fn handle(req: Request<Body>) -> http::Result<Response<Body>> {
                 if let Some(second_part) = parts.next() {
                     response = Some(handle_bonjour(Some(first_part), second_part));
                 } else {
-                    response = Some(handle_bonjour(None, first_part));
+                    response = Some(handle_bonjour(None, first_part).await);
                 }
             }
         }
@@ -54,7 +54,7 @@ async fn handle(req: Request<Body>) -> http::Result<Response<Body>> {
     })
 }
 
-fn handle_hello(req: &Request<Body>, number: &str, name: &str) -> http::Result<Response<Body>> {
+async fn handle_hello(req: &Request<Body>, number: &str, name: &str) -> http::Result<Response<Body>> {
     let number: u32 = match number.parse() {
         Ok(n) => n,
         Err(_) => {
@@ -74,7 +74,7 @@ fn handle_hello(req: &Request<Body>, number: &str, name: &str) -> http::Result<R
         .body(Body::from(format!("Hello, number {}: {} from {}", number, name, user_agent)))
 }
 
-fn handle_bonjour(title: Option<&str>, name: &str) -> http::Result<Response<Body>> {
+async fn handle_bonjour(title: Option<&str>, name: &str) -> http::Result<Response<Body>> {
     Response::builder()
         .status(StatusCode::OK)
         .body(Body::from(match title {
