@@ -1,19 +1,51 @@
 use std::convert::Infallible;
 use std::net::SocketAddr;
 
-use hyper::{Body, http, Request, Response, Server, StatusCode};
+use hyper::{Body, http, Request, Response, Server, StatusCode, Method};
 use hyper::service::{make_service_fn, service_fn};
+use regex::Match;
+use std::sync::Arc;
+use std::borrow::BorrowMut;
+use std::sync::atomic::{AtomicUsize, Ordering};
+mod routes;
+
+fn handle_foo(req: Request<Body>, matches: Match) -> http::Result<Response<Body>> {
+    println!("Req: {:?}", req);
+    println!("Matches: {:?}", matches);
+    Response::builder().body(Body::default())
+}
 
 #[tokio::main]
 async fn main() {
     let addr = SocketAddr::from(([127, 0, 0, 1], 3030));
 
-    let make_svc = make_service_fn(|_conn| async {
-        Ok::<_, Infallible>(service_fn(handle))
+//    let mut router = routes::Router::new();
+//    router.route(Method::GET, "/foo", handle_foo);
+//    let router = Arc::new(router);
+    let router = Arc::new(routes::Router::new());
+    let counter = Arc::new(AtomicUsize::new(0));
+
+    let service = make_service_fn(move |_|  {
+        let counter = counter.clone();
+        let router = router.clone();
+
+        async move {
+            Ok::<_, Infallible>(service_fn(move |req| {
+                let count = counter.fetch_add(1, Ordering::AcqRel);
+                println!("count = {}", count);
+//                router.handle(req).await
+                router.handle(req)
+//                handle(req)
+            }))
+        }
     });
 
-    let server = Server::bind(&addr).serve(make_svc);
-    println!("listening at {}", addr);
+//    let service = make_service_fn(|_conn| async {
+//        Ok::<_, Infallible>(service_fn(handle))
+//    });
+
+    let server = Server::bind(&addr).serve(service);
+    println!("listening at http://{}", addr);
 
     if let Err(e) = server.await {
         eprintln!("server error: {}", e);
