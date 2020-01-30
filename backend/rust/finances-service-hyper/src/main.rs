@@ -24,16 +24,17 @@ async fn main() {
     let router = Arc::new(routes::Router::new());
     let counter = Arc::new(AtomicUsize::new(0));
 
-    let service = make_service_fn(|_|  {
+    let service = make_service_fn(move |_|  {
         let counter_for_make_service_fn = counter.clone();
         let router_for_make_service_fn = router.clone();
 
-        async {
+        async move {
             Ok::<_, Infallible>(service_fn(move |req| {
                 let count = counter_for_make_service_fn.fetch_add(1, Ordering::AcqRel);
+
+                let router_for_service_fn = router_for_make_service_fn.clone();
                 println!("count = {}", count);
-//                router.handle(req).await
-                router_for_make_service_fn.handle(req)
+                router_for_service_fn.handle(req)
 //                handle(req)
             }))
         }
