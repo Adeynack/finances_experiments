@@ -1,16 +1,18 @@
 use std::convert::Infallible;
 use std::net::SocketAddr;
+use std::sync::Arc;
 
-use hyper::{Body, http, Request, Response, Server, StatusCode};
+use hyper::{Body, http, Method, Request, Response, Server, StatusCode};
 use hyper::service::{make_service_fn, service_fn};
 use regex::Match;
-use std::sync::Arc;
-use std::sync::atomic::{AtomicUsize, Ordering};
+
+use crate::routes::{RouteCreationError, Router};
+
 mod routes;
 
 fn handle_foo(req: Request<Body>, matches: Match) -> http::Result<Response<Body>> {
-    println!("Req: {:?}", req);
-    println!("Matches: {:?}", matches);
+//    println!("Req: {:?}", req);
+    println!("handle_foo / Matches: {:?}", matches);
     Response::builder().body(Body::default())
 }
 
@@ -18,31 +20,24 @@ fn handle_foo(req: Request<Body>, matches: Match) -> http::Result<Response<Body>
 async fn main() {
     let addr = SocketAddr::from(([127, 0, 0, 1], 3030));
 
-//    let mut router = routes::Router::new();
-//    router.route(Method::GET, "/foo", handle_foo);
-//    let router = Arc::new(router);
-    let router = Arc::new(routes::Router::new());
-    let counter = Arc::new(AtomicUsize::new(0));
+    let router = Arc::new(initialize_router().expect("initializing router"));
 
-    let service = make_service_fn(move |_|  {
-        let counter_for_make_service_fn = counter.clone();
-        let router_for_make_service_fn = router.clone();
-
+    let service = make_service_fn(move |_| {
+        println!("make_service_fn");
+        let router = router.clone();
         async move {
+            println!("make_service_fn / async move");
+            let router = router.clone();
             Ok::<_, Infallible>(service_fn(move |req| {
-                let count = counter_for_make_service_fn.fetch_add(1, Ordering::AcqRel);
-
-                let router_for_service_fn = router_for_make_service_fn.clone();
-                println!("count = {}", count);
-                router_for_service_fn.handle(req)
-//                handle(req)
+                println!("make_service_fn / async move / service_fn");
+                let router = router.clone();
+                async move {
+                    println!("make_service_fn / async move / service_fn / async move");
+                    router.handle(req).await
+                }
             }))
         }
     });
-
-//    let service = make_service_fn(|_conn| async {
-//        Ok::<_, Infallible>(service_fn(handle))
-//    });
 
     let server = Server::bind(&addr).serve(service);
     println!("listening at http://{}", addr);
@@ -50,6 +45,14 @@ async fn main() {
     if let Err(e) = server.await {
         eprintln!("server error: {}", e);
     }
+}
+
+fn initialize_router() -> Result<Router, RouteCreationError> {
+    let mut router = Router::new();
+
+    router.route(Method::GET, "/foo", handle_foo)?;
+
+    Ok(router)
 }
 
 async fn handle(req: Request<Body>) -> http::Result<Response<Body>> {

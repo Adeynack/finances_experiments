@@ -40,6 +40,7 @@ impl Router {
 
     pub async fn handle(&self, req: Req) -> Resp {
         let path = req.uri().path().to_string();
+        println!("Router received request {} {}", req.method(), path);
 //        for route in &self.routes {
 //            if let Some(captures) = route.matcher.captures(&path) {
 //                if captures.len() > 1 {
@@ -52,6 +53,7 @@ impl Router {
 //            .status(StatusCode::NOT_FOUND)
 //            .body(Body::from("Not found"))
 
+        // todo: match also on the request's METHOD (GET, POST, ...)
         match self.routes.iter().find_map(|route| {
             route.matcher.captures(&path).map(|captures| { (route, captures) })
         }) {
@@ -68,6 +70,7 @@ impl Router {
     }
 }
 
+#[derive(Debug)]
 pub enum RouteCreationError {
     PathRegExError(regex::Error),
     RouteAlreadyExist(String),
