@@ -1,7 +1,5 @@
-use std::error::Error;
-
 use hyper::{Body, Method, Request, Response, StatusCode};
-use regex::{Captures, Match, Regex};
+use regex::{Match, Regex};
 
 use crate::routes::RouteCreationError::{PathRegExError, RouteAlreadyExist};
 

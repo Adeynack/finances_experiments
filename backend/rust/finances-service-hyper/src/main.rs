@@ -1,11 +1,10 @@
 use std::convert::Infallible;
 use std::net::SocketAddr;
 
-use hyper::{Body, http, Request, Response, Server, StatusCode, Method};
+use hyper::{Body, http, Request, Response, Server, StatusCode};
 use hyper::service::{make_service_fn, service_fn};
 use regex::Match;
 use std::sync::Arc;
-use std::borrow::BorrowMut;
 use std::sync::atomic::{AtomicUsize, Ordering};
 mod routes;
 
@@ -25,16 +24,16 @@ async fn main() {
     let router = Arc::new(routes::Router::new());
     let counter = Arc::new(AtomicUsize::new(0));
 
-    let service = make_service_fn(move |_|  {
-        let counter = counter.clone();
-        let router = router.clone();
+    let service = make_service_fn(|_|  {
+        let counter_for_make_service_fn = counter.clone();
+        let router_for_make_service_fn = router.clone();
 
-        async move {
+        async {
             Ok::<_, Infallible>(service_fn(move |req| {
-                let count = counter.fetch_add(1, Ordering::AcqRel);
+                let count = counter_for_make_service_fn.fetch_add(1, Ordering::AcqRel);
                 println!("count = {}", count);
 //                router.handle(req).await
-                router.handle(req)
+                router_for_make_service_fn.handle(req)
 //                handle(req)
             }))
         }
