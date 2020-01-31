@@ -23,16 +23,16 @@ async fn main() {
     let router = Arc::new(initialize_router().expect("initializing router"));
 
     let service = make_service_fn(move |_| {
-        println!("make_service_fn");
+        println!("1️⃣  make_service_fn  ⚠️ cloning 'router'");
         let router = router.clone();
         async move {
-            println!("make_service_fn / async move");
+            println!("2️⃣  make_service_fn / async move  ⚠️ cloning 'router'");
             let router = router.clone();
             Ok::<_, Infallible>(service_fn(move |req| {
-                println!("make_service_fn / async move / service_fn");
+                println!("3️⃣  service_fn  ⚠️ cloning 'router'");
                 let router = router.clone();
                 async move {
-                    println!("make_service_fn / async move / service_fn / async move");
+                    println!("4️⃣ service_fn / async move");
                     router.handle(req).await
                 }
             }))
