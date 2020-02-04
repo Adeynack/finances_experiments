@@ -1,11 +1,11 @@
 use hyper::{Body, Method, Request, Response, StatusCode};
-use regex::{Match, Regex};
+use regex::{Regex, Captures};
 
 use crate::routes::RouteCreationError::{PathRegExError, RouteAlreadyExist};
 
 type Req = Request<Body>;
 type Resp = hyper::http::Result<Response<Body>>;
-type Handler = fn(Req, Match) -> Resp;
+type Handler = fn(Req, Captures) -> Resp;
 
 struct Route {
     matcher: Regex,
@@ -41,32 +41,30 @@ impl Router {
     pub async fn handle(&self, req: Req) -> Resp {
         let path = req.uri().path().to_string();
         println!("Router received request {} {}", req.method(), path);
-//        for route in &self.routes {
-//            if let Some(captures) = route.matcher.captures(&path) {
+        // todo: match also on the request's METHOD (GET, POST, ...)
+        let routes_for_method = self.routes.iter().filter(|r| r.method == req.method());
+        for route in routes_for_method {
+            if let Some(captures) = route.matcher.captures(&path) {
+                return (route.handler)(req, captures);
+            }
+        }
+        Response::builder()
+            .status(StatusCode::NOT_FOUND)
+            .body(Body::from("Not found"))
+
+//        match self.routes.iter().find_map(|route| {
+//            route.matcher.captures(&path).map(|captures| { (route, captures) })
+//        }) {
+//            None => Response::builder()
+//                .status(StatusCode::NOT_FOUND)
+//                .body(Body::from("Not found")),
+//            Some((route, captures)) => {
 //                if captures.len() > 1 {
 //                    println!("WARN: Group captured more than once.")
 //                }
-//                return (route.handler)(req, captures.get(0).unwrap());
+//                (route.handler)(req, captures.get(0).unwrap())
 //            }
 //        }
-//        Response::builder()
-//            .status(StatusCode::NOT_FOUND)
-//            .body(Body::from("Not found"))
-
-        // todo: match also on the request's METHOD (GET, POST, ...)
-        match self.routes.iter().find_map(|route| {
-            route.matcher.captures(&path).map(|captures| { (route, captures) })
-        }) {
-            None => Response::builder()
-                .status(StatusCode::NOT_FOUND)
-                .body(Body::from("Not found")),
-            Some((route, captures)) => {
-                if captures.len() > 1 {
-                    println!("WARN: Group captured more than once.")
-                }
-                (route.handler)(req, captures.get(0).unwrap())
-            }
-        }
     }
 }
 
