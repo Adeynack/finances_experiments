@@ -2,7 +2,7 @@
   "name": "core",
   "private": true,
   "version": "1.0.0",
-  "description": "This is the main API of krasserstoff.com and includes both public shop apis and apis for internal use in administration tools.",
+  "description": "",
   "directories": {
     "doc": "doc",
     "lib": "lib"
