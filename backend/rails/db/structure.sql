@@ -217,7 +217,6 @@ CREATE TABLE public.sessions (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     user_id uuid NOT NULL,
-    expired_at timestamp without time zone,
     last_active_at timestamp without time zone,
     user_agent character varying,
     ip character varying
@@ -391,13 +390,6 @@ CREATE INDEX index_currencies_on_book_id ON public.currencies USING btree (book_
 --
 
 CREATE UNIQUE INDEX index_currencies_on_code_and_book_id ON public.currencies USING btree (code, book_id);
-
-
---
--- Name: index_sessions_on_expired_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_sessions_on_expired_at ON public.sessions USING btree (expired_at);
 
 
 --

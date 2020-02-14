@@ -16,7 +16,7 @@ tags:
   - name: books
     description: Book management.
 
-paths: #===========================================================================================
+paths:
   '/session':
     post:
       summary: Create a new session (login).
@@ -39,6 +39,15 @@ paths: #========================================================================
       responses:
         201:
           description: Credentials are accepted and session was created.
+    get:
+      summary: Get current session's information.
+      tags: ['session']
+      security:
+        - SessionAuth: []
+      operationId: GetSession
+      responses:
+        200:
+          description: Session information.
 
   '/books':
     get:
@@ -109,7 +118,13 @@ paths: #========================================================================
         '204':
           description: The book is deleted. No content returned.
 
-components: #======================================================================================
+components:
+  securitySchemes:
+    SessionAuth:
+      description: An authenticated session is in progress.
+      type: http
+      scheme: bearer
+
   parameters: #------------------------------------------------------------------------------------
     BookID:
       description: The book's identifier.

@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe API::V1::SessionsController do
   fixtures :users
 
-  describe "POST /api/v1/sessions" do
+  describe "POST /api/v1/session" do
     it "fails if no email is provided" do
       post api_v1_session_path, params: {}
       expect(response).to have_http_status :bad_request
@@ -34,9 +34,37 @@ RSpec.describe API::V1::SessionsController do
 
       expect(json).to have_attributes(
         token: created_session.id,
-        user_id: joe.id
+        user_id: joe.id,
+        valid_until: 20.minutes.from_now
       )
-      expect(DateTime.parse(json.valid_until).utc).to eq 20.minutes.from_now
+    end
+  end
+
+  describe "GET /api/v1/session" do
+    it "fails with Unauthorized if no session is provided" do
+      get api_v1_session_path
+      expect(response).to have_http_status :unauthorized
+      expect(json.detail).to eq "A session is required."
+    end
+
+    it "fails with Unauthorized when the session does not exist" do
+      get api_v1_session_path, headers: { "Authorization" => "Bearer I_DO_NOT_EXIST" }
+      expect(response).to have_http_status :unauthorized
+      expect(json.detail).to eq "Session does not exist or timed out."
+    end
+
+    it "shows the session when it exists" do
+      freeze_time
+      user = users(:joe)
+      session = Session.create user: user
+
+      get api_v1_session_path, headers: { "Authorization" => "Bearer #{session.id}" }
+      expect(response).to have_http_status :ok
+      expect(json).to have_attributes(
+        token: session.id,
+        user_id: user.id,
+        valid_until: 20.minutes.from_now
+      )
     end
   end
 end
