@@ -1,0 +1,17 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :uuid             not null, primary key
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  email           :string           not null
+#  display_name    :string           not null
+#  password_digest :string
+#
+
+joe:
+  id: ddda1a19-4a25-4a38-bffb-edf954a01ba8
+  email: joe@foobar.com
+  display_name: Joe
+  password_digest: '$2a$04$rXhcv3udr1fABbqDwY5oBOZde0aZNgR6OE26P6YVjYwaOcxkYIZM6' # foobar

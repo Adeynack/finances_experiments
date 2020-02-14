@@ -53,6 +53,17 @@ CREATE TYPE public.account_type AS ENUM (
 );
 
 
+--
+-- Name: user_right_type; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.user_right_type AS ENUM (
+    'own',
+    'read',
+    'write'
+);
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -114,6 +125,20 @@ CREATE TABLE public.ar_internal_metadata (
     value character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: book_rights; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.book_rights (
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    book_id bigint,
+    user_id bigint NOT NULL,
+    "right" public.user_right_type NOT NULL
 );
 
 
@@ -184,6 +209,22 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sessions (
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    user_id uuid NOT NULL,
+    expired_at timestamp without time zone,
+    last_active_at timestamp without time zone,
+    user_agent character varying,
+    ip character varying
+);
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -214,6 +255,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: book_rights book_rights_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.book_rights
+    ADD CONSTRAINT book_rights_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: books books_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -235,6 +284,14 @@ ALTER TABLE ONLY public.currencies
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
 
 
 --
@@ -288,6 +345,27 @@ CREATE INDEX index_accounts_on_type ON public.accounts USING btree (type);
 
 
 --
+-- Name: index_book_rights_on_book_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_book_rights_on_book_id ON public.book_rights USING btree (book_id);
+
+
+--
+-- Name: index_book_rights_on_book_id_and_user_id_and_right; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_book_rights_on_book_id_and_user_id_and_right ON public.book_rights USING btree (book_id, user_id, "right");
+
+
+--
+-- Name: index_book_rights_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_book_rights_on_user_id ON public.book_rights USING btree (user_id);
+
+
+--
 -- Name: index_books_on_name_and_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -313,6 +391,27 @@ CREATE INDEX index_currencies_on_book_id ON public.currencies USING btree (book_
 --
 
 CREATE UNIQUE INDEX index_currencies_on_code_and_book_id ON public.currencies USING btree (code, book_id);
+
+
+--
+-- Name: index_sessions_on_expired_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sessions_on_expired_at ON public.sessions USING btree (expired_at);
+
+
+--
+-- Name: index_sessions_on_last_active_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sessions_on_last_active_at ON public.sessions USING btree (last_active_at);
+
+
+--
+-- Name: index_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sessions_on_user_id ON public.sessions USING btree (user_id);
 
 
 --
@@ -374,6 +473,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190406213402'),
 ('20190414223259'),
 ('20190414223400'),
-('20190414223406');
+('20190414223406'),
+('20200212182458'),
+('20200212183816'),
+('20200212184830');
 
 

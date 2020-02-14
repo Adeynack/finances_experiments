@@ -1,9 +1,5 @@
-require:
-  - rubocop-performance
-  - rubocop-rspec
-
 AllCops:
-  TargetRubyVersion: 2.6.5
+  TargetRubyVersion: 2.6.1
   DisplayCopNames: true
   DisplayStyleGuide: true
   Exclude:
@@ -12,34 +8,34 @@ AllCops:
     - 'db/schema.rb'
     - 'node_modules/**/*'
 
+require:
+  - rubocop/rspec/focused
+
 Bundler/OrderedGems:
   Enabled: false
-
-Layout/LineLength:
-  Max: 200
 
 Rails:
   Enabled: true
 
-# Rails/NotNullColumn:
-#   Enabled: false
+Rails/NotNullColumn:
+  Enabled: false
 
-# Rails/ReversibleMigration:
-#   Enabled: false
+Rails/ReversibleMigration:
+  Enabled: false
 
-# Rails/FilePath:
-#   Enabled: false
+Rails/FilePath:
+  Enabled: false
 
-# Rails/SkipsModelValidations:
-#   Enabled: false
+Rails/SkipsModelValidations:
+  Enabled: false
 
-# Rails/BulkChangeTable:
-#   Enabled: false
+Rails/BulkChangeTable:
+  Enabled: false
 
-Layout/ParameterAlignment:
+Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
-Layout/FirstArrayElementIndentation:
+Layout/IndentArray:
   EnforcedStyle: consistent
 
 Style/ConditionalAssignment:
@@ -50,9 +46,6 @@ Style/Documentation:
 
 Style/EmptyMethod:
   EnforcedStyle: expanded
-
-Style/FrozenStringLiteralComment:
-  Enabled: true
 
 Style/MultilineBlockChain:
   Enabled: false
@@ -78,6 +71,9 @@ Style/WordArray:
 Style/SymbolArray:
   EnforcedStyle: brackets
 
+Style/RescueModifier:
+  Enabled: false
+
 Style/Lambda:
   EnforcedStyle: literal
 
@@ -87,11 +83,8 @@ Style/RegexpLiteral:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-Metrics:
+Style/Alias:
   Enabled: false
 
-RSpec/MultipleExpectations:
-  Max: 20
-
-RSpec/ExampleLength:
-  Max: 20
+Metrics:
+  Enabled: false

@@ -11,10 +11,34 @@ servers:
     description: Local Server
 
 tags:
+  - name: session
+    description: Login / Logout / Session information.
   - name: books
     description: Book management.
 
 paths: #===========================================================================================
+  '/session':
+    post:
+      summary: Create a new session (login).
+      tags: ['session']
+      operationId: CreateSession
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                  format: password
+              example:
+                email: joe@example.com
+                password: foobar
+      responses:
+        201:
+          description: Credentials are accepted and session was created.
 
   '/books':
     get:
@@ -86,9 +110,7 @@ paths: #========================================================================
           description: The book is deleted. No content returned.
 
 components: #======================================================================================
-
   parameters: #------------------------------------------------------------------------------------
-
     BookID:
       description: The book's identifier.
       name: book_id
@@ -100,7 +122,6 @@ components: #===================================================================
       example: 238bfbb1-55f6-4614-8d7f-26edde264525
 
   schemas: #---------------------------------------------------------------------------------------
-
     Book_Base:
       type: object
       required:
