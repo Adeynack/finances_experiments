@@ -17,4 +17,9 @@ class API::V1::SessionsController < API::V1::APIController
   def show
     render json: session
   end
+
+  def destroy
+    session.destroy!
+    head :no_content
+  end
 end

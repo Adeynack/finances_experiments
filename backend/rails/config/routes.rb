@@ -4,8 +4,6 @@
 #
 #                    Prefix Verb   URI Pattern                                                                              Controller#Action
 #            api_v1_session GET    /v1/session(.:format)                                                                    api/v1/sessions#show {:format=>["json"]}
-#                           PATCH  /v1/session(.:format)                                                                    api/v1/sessions#update {:format=>["json"]}
-#                           PUT    /v1/session(.:format)                                                                    api/v1/sessions#update {:format=>["json"]}
 #                           DELETE /v1/session(.:format)                                                                    api/v1/sessions#destroy {:format=>["json"]}
 #                           POST   /v1/session(.:format)                                                                    api/v1/sessions#create {:format=>["json"]}
 #              api_v1_books GET    /v1/books(.:format)                                                                      api/v1/books#index {:format=>["json"]}
@@ -25,7 +23,7 @@
 Rails.application.routes.draw do
   namespace :api, path: "", constraints: { format: ["json"] }, defaults: { format: :json } do
     namespace :v1 do
-      resource :session
+      resource :session, only: [:create, :show, :destroy]
       resources :books
     end
     root to: "api#root"
