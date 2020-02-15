@@ -47,5 +47,8 @@ module FinancesRails
 
     # Replace `schema.rb` by `structure.sql`
     config.active_record.schema_format = :sql
+
+    # Configure Sidekiq with ActiveJob
+    config.active_job.queue_adaptor = :sidekiq
   end
 end

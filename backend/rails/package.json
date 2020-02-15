@@ -1,5 +1,5 @@
 {
-  "name": "core",
+  "name": "Finances",
   "private": true,
   "version": "1.0.0",
   "description": "",
@@ -16,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KrasserStoff/core.git"
+    "url": "git+https://github.com/adeynack/Finances.git"
   },
-  "author": "nerdgeschoss GmbH",
+  "author": "Adeynack",
   "license": "SEE LICENSE IN README.md",
   "bugs": {
-    "url": "https://github.com/KrasserStoff/core/issues"
+    "url": "https://github.com/adeynack/Finances/issues"
   },
-  "homepage": "https://github.com/KrasserStoff/core#readme"
+  "homepage": "https://github.com/adeynack/Finances#readme"
 }

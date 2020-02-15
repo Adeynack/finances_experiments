@@ -20,7 +20,7 @@ module Errorable
     return if Rails.env.test?
     return if error.is_a?(ActiveRecord::RecordNotFound)
 
-    Rails.logger.error "[API] Error: #{error.class.to_s}: #{error.message}"
+    Rails.logger.error "[API] Error: #{error.class}: #{error.message}"
   end
 
   def render_error(error, trace = nil)

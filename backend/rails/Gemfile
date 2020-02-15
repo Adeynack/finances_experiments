@@ -24,6 +24,8 @@ gem "bulk_insert"
 gem "bcrypt"
 gem "virtus"
 gem "groupdate"
+gem "sidekiq"
+gem "sidekiq-scheduler"
 
 # Seed Data
 gem "database_cleaner"

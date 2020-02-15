@@ -27,6 +27,10 @@ class Session < ApplicationRecord
     self.user_agent = user_agent&.truncate(255)
   end
 
+  after_commit(on: :destroy) do
+    Rails.cache.delete([:session, id])
+  end
+
   def valid_until
     last_active_at + EXPIRES_AFTER
   end
@@ -42,8 +46,7 @@ class Session < ApplicationRecord
         .merge(
           last_active_at: DateTime.current,
           user_id: user.id
-        )
-      )
+        ))
       session.save!
       session
     end
