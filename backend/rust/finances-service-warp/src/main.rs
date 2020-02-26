@@ -1,6 +1,11 @@
 use std::error::Error;
 
-use tokio::signal;
+use futures::future;
+use futures::select;
+use tokio::signal::{
+    self,
+    unix::{signal, SignalKind},
+};
 use tokio::sync::oneshot;
 use warp::http::{Response, StatusCode};
 use warp::{self, path, Filter};
@@ -27,7 +32,19 @@ async fn main() -> Result<(), Box<dyn Error>> {
     });
     tokio::task::spawn(server);
 
-    signal::ctrl_c().await?;
+    // TODO: Check for signals https://github.com/watchexec/watchexec/blob/main/src/signal.rs
+    //       The one sent to the app from `cargo watch` is probably SIGHUP
+    // also https://users.rust-lang.org/t/merging-disparate-streams-using-selectall/31930
+
+    let mut stream = signal(SignalKind::hangup())?;
+    let stream = stream.recv();
+    let ctrl_c_stream = signal::ctrl_c();
+
+    select! {
+        _ = stream => println!("Signal 'Hangup' received"),
+        _ = ctrl_c_stream => println!("Signal 'Ctrl-C' received"),
+    }
+
     let _ = tx.send(());
 
     println!("server shutting down");
