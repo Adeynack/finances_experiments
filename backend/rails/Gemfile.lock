@@ -1,38 +1,38 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    actioncable (6.0.2.1)
-      actionpack (= 6.0.2.1)
+    actioncable (6.0.2)
+      actionpack (= 6.0.2)
       nio4r (~> 2.0)
       websocket-driver (>= 0.6.1)
-    actionmailbox (6.0.2.1)
-      actionpack (= 6.0.2.1)
-      activejob (= 6.0.2.1)
-      activerecord (= 6.0.2.1)
-      activestorage (= 6.0.2.1)
-      activesupport (= 6.0.2.1)
+    actionmailbox (6.0.2)
+      actionpack (= 6.0.2)
+      activejob (= 6.0.2)
+      activerecord (= 6.0.2)
+      activestorage (= 6.0.2)
+      activesupport (= 6.0.2)
       mail (>= 2.7.1)
-    actionmailer (6.0.2.1)
-      actionpack (= 6.0.2.1)
-      actionview (= 6.0.2.1)
-      activejob (= 6.0.2.1)
+    actionmailer (6.0.2)
+      actionpack (= 6.0.2)
+      actionview (= 6.0.2)
+      activejob (= 6.0.2)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 2.0)
-    actionpack (6.0.2.1)
-      actionview (= 6.0.2.1)
-      activesupport (= 6.0.2.1)
-      rack (~> 2.0, >= 2.0.8)
+    actionpack (6.0.2)
+      actionview (= 6.0.2)
+      activesupport (= 6.0.2)
+      rack (~> 2.0)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.2.0)
-    actiontext (6.0.2.1)
-      actionpack (= 6.0.2.1)
-      activerecord (= 6.0.2.1)
-      activestorage (= 6.0.2.1)
-      activesupport (= 6.0.2.1)
+    actiontext (6.0.2)
+      actionpack (= 6.0.2)
+      activerecord (= 6.0.2)
+      activestorage (= 6.0.2)
+      activesupport (= 6.0.2)
       nokogiri (>= 1.8.5)
-    actionview (6.0.2.1)
-      activesupport (= 6.0.2.1)
+    actionview (6.0.2)
+      activesupport (= 6.0.2)
       builder (~> 3.1)
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
@@ -42,44 +42,44 @@ GEM
       activemodel (>= 4.1, < 6.1)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
-    activejob (6.0.2.1)
-      activesupport (= 6.0.2.1)
+    active_record_extended (1.4.0)
+      activerecord (>= 5.0, < 6.1)
+      ar_outer_joins (~> 0.2)
+      pg (< 2.0)
+    activejob (6.0.2)
+      activesupport (= 6.0.2)
       globalid (>= 0.3.6)
-    activemodel (6.0.2.1)
-      activesupport (= 6.0.2.1)
-    activerecord (6.0.2.1)
-      activemodel (= 6.0.2.1)
-      activesupport (= 6.0.2.1)
-    activestorage (6.0.2.1)
-      actionpack (= 6.0.2.1)
-      activejob (= 6.0.2.1)
-      activerecord (= 6.0.2.1)
+    activemodel (6.0.2)
+      activesupport (= 6.0.2)
+    activerecord (6.0.2)
+      activemodel (= 6.0.2)
+      activesupport (= 6.0.2)
+    activestorage (6.0.2)
+      actionpack (= 6.0.2)
+      activejob (= 6.0.2)
+      activerecord (= 6.0.2)
       marcel (~> 0.3.1)
-    activesupport (6.0.2.1)
+    activesupport (6.0.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
-    annotate (3.0.3)
+    annotate (3.1.0)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
+    ar_outer_joins (0.2.0)
+      activerecord (>= 3.2)
     ast (2.4.0)
     awesome_print (1.8.0)
-    axiom-types (0.1.1)
-      descendants_tracker (~> 0.0.4)
-      ice_nine (~> 0.11.0)
-      thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.13)
     bindex (0.8.1)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootsnap (1.4.5)
+    bootsnap (1.4.6)
       msgpack (~> 1.0)
-    browser (3.0.3)
+    browser (4.0.0)
     builder (3.2.4)
-    bulk_insert (1.7.0)
-      activerecord (>= 3.2.0)
     bullet (6.1.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
@@ -87,15 +87,11 @@ GEM
     case_transform (0.2)
       activesupport
     coderay (1.1.2)
-    coercible (1.0.0)
-      descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
     crass (1.0.6)
-    database_cleaner (1.8.2)
+    database_cleaner (1.8.3)
     debug_inspector (0.0.3)
-    descendants_tracker (0.0.4)
-      thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.3)
     docile (1.3.2)
     dotenv (2.7.5)
@@ -103,7 +99,9 @@ GEM
       dotenv (= 2.7.5)
       railties (>= 3.2, < 6.1)
     e2mmap (0.1.0)
-    equalizer (0.0.11)
+    erd (0.6.4)
+      nokogiri
+      ruby-graphviz
     erubi (1.9.0)
     et-orbi (1.2.2)
       tzinfo
@@ -112,10 +110,12 @@ GEM
     factory_bot_rails (5.1.1)
       factory_bot (~> 5.1.0)
       railties (>= 4.2.0)
-    faker (2.10.1)
+    faker (2.10.2)
       i18n (>= 1.6, < 2)
     ffi (1.12.2)
     formatador (0.2.5)
+    friendly_id (5.3.0)
+      activerecord (>= 4.0.0)
     fugit (1.3.3)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.1)
@@ -124,8 +124,6 @@ GEM
       ruby-progressbar (~> 1.4)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    groupdate (4.3.0)
-      activesupport (>= 5)
     guard (2.16.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -140,10 +138,9 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    hodel_3000_compliant_logger (0.1.1)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
-    ice_nine (0.11.2)
-    interception (0.5)
     jaro_winkler (1.5.4)
     json (2.3.0)
     jsonapi-renderer (0.2.2)
@@ -159,10 +156,9 @@ GEM
       activerecord
       kaminari-core (= 1.2.0)
     kaminari-core (1.2.0)
-    listen (3.1.5)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-      ruby_dep (~> 1.2)
+    listen (3.2.1)
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.4.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -184,29 +180,25 @@ GEM
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    oink (0.10.1)
+      activerecord
+      hodel_3000_compliant_logger
     oj (3.10.2)
     parallel (1.19.1)
-    parser (2.7.0.2)
+    parser (2.7.0.3)
       ast (~> 2.4.0)
     pg (1.2.2)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-    pry-byebug (3.8.0)
-      byebug (~> 11.0)
-      pry (~> 0.10)
     pry-doc (1.0.0)
       pry (~> 0.11)
       yard (~> 0.9.11)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    pry-rescue (1.5.0)
-      interception (>= 0.5)
-      pry (>= 0.12.0)
     pry-stack_explorer (0.4.9.3)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
-    psych (3.1.0)
     puma (4.3.1)
       nio4r (~> 2.0)
     pundit (2.1.0)
@@ -219,20 +211,20 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
-    rails (6.0.2.1)
-      actioncable (= 6.0.2.1)
-      actionmailbox (= 6.0.2.1)
-      actionmailer (= 6.0.2.1)
-      actionpack (= 6.0.2.1)
-      actiontext (= 6.0.2.1)
-      actionview (= 6.0.2.1)
-      activejob (= 6.0.2.1)
-      activemodel (= 6.0.2.1)
-      activerecord (= 6.0.2.1)
-      activestorage (= 6.0.2.1)
-      activesupport (= 6.0.2.1)
+    rails (6.0.2)
+      actioncable (= 6.0.2)
+      actionmailbox (= 6.0.2)
+      actionmailer (= 6.0.2)
+      actionpack (= 6.0.2)
+      actiontext (= 6.0.2)
+      actionview (= 6.0.2)
+      activejob (= 6.0.2)
+      activemodel (= 6.0.2)
+      activerecord (= 6.0.2)
+      activestorage (= 6.0.2)
+      activesupport (= 6.0.2)
       bundler (>= 1.3.0)
-      railties (= 6.0.2.1)
+      railties (= 6.0.2)
       sprockets-rails (>= 2.0.0)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
@@ -242,9 +234,9 @@ GEM
     rails-i18n (6.0.0)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 7)
-    railties (6.0.2.1)
-      actionpack (= 6.0.2.1)
-      activesupport (= 6.0.2.1)
+    railties (6.0.2)
+      actionpack (= 6.0.2)
+      activesupport (= 6.0.2)
       method_source
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
@@ -254,6 +246,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.1.3)
+    rexml (3.2.4)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -275,20 +268,27 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.2)
-    rubocop (0.66.0)
+    rubocop (0.80.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
-      parser (>= 2.5, != 2.5.1.1)
-      psych (>= 3.1.0)
+      parser (>= 2.7.0.1)
       rainbow (>= 2.2.2, < 4.0)
+      rexml
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 1.4.0, < 1.6)
-    rubocop-rspec (1.35.0)
-      rubocop (>= 0.60.0)
+      unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-faker (0.2.0)
+      rubocop (>= 0.74)
+    rubocop-performance (1.5.2)
+      rubocop (>= 0.71.0)
+    rubocop-rails (2.4.2)
+      rack (>= 1.1)
+      rubocop (>= 0.72.0)
+    rubocop-rspec (1.38.1)
+      rubocop (>= 0.68.1)
     rubocop-rspec-focused (1.0.0)
       rubocop (>= 0.51)
+    ruby-graphviz (1.2.4)
     ruby-progressbar (1.10.1)
-    ruby_dep (1.5.0)
     rufus-scheduler (3.6.0)
       fugit (~> 1.1, >= 1.1.6)
     shellany (0.0.1)
@@ -304,10 +304,10 @@ GEM
       sidekiq (>= 3)
       thwait
       tilt (>= 1.4.0)
-    simplecov (0.18.2)
+    simplecov (0.18.5)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
-    simplecov-html (0.12.0)
+    simplecov-html (0.12.1)
     simplecov-json (0.2)
       json
       simplecov
@@ -330,13 +330,8 @@ GEM
     tilt (2.0.10)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
-    unicode-display_width (1.5.0)
+    unicode-display_width (1.6.1)
     uniform_notifier (1.13.0)
-    virtus (1.0.5)
-      axiom-types (~> 0.1)
-      coercible (~> 1.0)
-      descendants_tracker (~> 0.0, >= 0.0.3)
-      equalizer (~> 0.0, >= 0.0.9)
     web-console (4.0.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -353,29 +348,30 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  active_record_extended
   annotate
   awesome_print
   bcrypt
-  bootsnap (>= 1.4.1)
+  bootsnap
   browser
-  bulk_insert
   bullet
+  byebug
   database_cleaner
   dotenv-rails
+  erd
   factory_bot_rails
   faker
+  friendly_id
   fuubar
-  groupdate
   guard
   guard-rspec
   kaminari
-  listen (>= 3.0.5, < 3.2)
+  listen
+  oink
   oj
-  pg (>= 0.18, < 2.0)
-  pry-byebug
+  pg
   pry-doc
   pry-rails
-  pry-rescue
   pry-stack_explorer
   puma
   pundit
@@ -383,7 +379,10 @@ DEPENDENCIES
   rails (~> 6.0.2)
   rails-i18n
   rspec-rails
-  rubocop (= 0.66.0)
+  rubocop
+  rubocop-faker
+  rubocop-performance
+  rubocop-rails
   rubocop-rspec
   rubocop-rspec-focused
   sidekiq
@@ -392,12 +391,11 @@ DEPENDENCIES
   simplecov-json
   spring
   spring-commands-rspec
-  spring-watcher-listen (~> 2.0.0)
-  virtus
+  spring-watcher-listen
   web-console
 
 RUBY VERSION
-   ruby 2.6.1p33
+   ruby 2.6.5p114
 
 BUNDLED WITH
    1.17.3

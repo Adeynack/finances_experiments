@@ -13,6 +13,6 @@
 
 FactoryBot.define do
   factory :book do
-    name { Faker::Lorem.unique.sentences(1)[0] }
+    name { Faker::Lorem.unique.sentences(number: 1)[0] }
   end
 end

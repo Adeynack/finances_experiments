@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.6.1
+  TargetRubyVersion: 2.6.5
   DisplayCopNames: true
   DisplayStyleGuide: true
   Exclude:
@@ -10,9 +10,9 @@ AllCops:
 
 require:
   - rubocop/rspec/focused
-
-Bundler/OrderedGems:
-  Enabled: false
+  - rubocop-faker
+  - rubocop-rails
+  - rubocop-performance
 
 Rails:
   Enabled: true
@@ -32,11 +32,17 @@ Rails/SkipsModelValidations:
 Rails/BulkChangeTable:
   Enabled: false
 
-Layout/AlignParameters:
+Bundler/OrderedGems:
+  Enabled: false
+
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
 
-Layout/IndentArray:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
+
+Layout/LineLength:
+  Enabled: false
 
 Style/ConditionalAssignment:
   Enabled: false
@@ -71,6 +77,15 @@ Style/WordArray:
 Style/SymbolArray:
   EnforcedStyle: brackets
 
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
 Style/RescueModifier:
   Enabled: false
 
@@ -88,3 +103,15 @@ Style/Alias:
 
 Metrics:
   Enabled: false
+
+Faker/DeprecatedArguments:
+  Enabled: true
+
+Performance/CaseWhenSplat:
+  Enabled: true
+
+Performance/ChainArrayAllocation:
+  Enabled: true
+
+Performance/OpenStruct:
+  Enabled: true

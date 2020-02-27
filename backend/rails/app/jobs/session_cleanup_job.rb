@@ -6,8 +6,8 @@ class SessionCleanupJob < ApplicationJob
   def perform
     Session.expired.find_each do |s|
       s.destroy!
-    rescue ActiveRecord::DeleteRestrictionError => error
-      Rails.logger.error "#{error.class}: #{error.message}"
+    rescue ActiveRecord::DeleteRestrictionError => e
+      Rails.logger.error "#{e.class}: #{e.message}"
     end
   end
 end
