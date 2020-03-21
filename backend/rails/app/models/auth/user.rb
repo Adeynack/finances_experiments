@@ -9,7 +9,7 @@
 #  updated_at      :datetime         not null
 #  email           :string           not null
 #  display_name    :string           not null
-#  password_digest :string
+#  password_digest :string           not null
 #
 
 class User < ApplicationRecord
@@ -19,4 +19,5 @@ class User < ApplicationRecord
 
   validates :email, presence: true
   validates :display_name, presence: true
+  validates :password_digest, presence: true
 end

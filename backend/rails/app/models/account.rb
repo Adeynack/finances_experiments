@@ -15,7 +15,7 @@
 #  notes           :string
 #  currency_id     :uuid             not null
 #  initial_balance :integer
-#  active          :boolean          default(TRUE)
+#  active          :boolean          default("true")
 #
 
 class Account < ApplicationRecord
@@ -29,4 +29,8 @@ class Account < ApplicationRecord
 
   validates :name, presence: true
   validates :type, presence: true
+
+  before :save do
+    self.initial_balance = null if initial_balance == 0
+  end
 end

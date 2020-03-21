@@ -3,17 +3,17 @@
 class CreateRightTypes < ActiveRecord::Migration[6.0]
   def up
     execute <<~SQL
-      CREATE TYPE user_right_type AS ENUM(
-        'own',
-        'read',
-        'write'
+      CREATE TYPE user_access_level AS ENUM(
+        'admin',
+        'write',
+        'read'
       );
     SQL
   end
 
   def down
     execute <<~SQL
-      DROP TYPE user_right_type;
+      DROP TYPE user_access_level;
     SQL
   end
 end

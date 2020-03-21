@@ -9,7 +9,7 @@
 #  updated_at      :datetime         not null
 #  email           :string           not null
 #  display_name    :string           not null
-#  password_digest :string
+#  password_digest :string           not null
 #
 
 FactoryBot.define do

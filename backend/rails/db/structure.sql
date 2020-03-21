@@ -54,13 +54,13 @@ CREATE TYPE public.account_type AS ENUM (
 
 
 --
--- Name: user_right_type; Type: TYPE; Schema: public; Owner: -
+-- Name: user_access_level; Type: TYPE; Schema: public; Owner: -
 --
 
-CREATE TYPE public.user_right_type AS ENUM (
-    'own',
-    'read',
-    'write'
+CREATE TYPE public.user_access_level AS ENUM (
+    'admin',
+    'write',
+    'read'
 );
 
 
@@ -138,7 +138,7 @@ CREATE TABLE public.book_rights (
     updated_at timestamp(6) without time zone NOT NULL,
     book_id bigint,
     user_id bigint NOT NULL,
-    "right" public.user_right_type NOT NULL
+    access public.user_access_level NOT NULL
 );
 
 
@@ -163,8 +163,7 @@ CREATE TABLE public.currencies (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    code character varying,
-    book_id uuid,
+    iso_code character varying,
     name character varying NOT NULL,
     prefix character varying,
     suffix character varying
@@ -172,17 +171,10 @@ CREATE TABLE public.currencies (
 
 
 --
--- Name: COLUMN currencies.code; Type: COMMENT; Schema: public; Owner: -
+-- Name: COLUMN currencies.iso_code; Type: COMMENT; Schema: public; Owner: -
 --
 
-COMMENT ON COLUMN public.currencies.code IS 'ISO-4217 Code (https://en.wikipedia.org/wiki/ISO_4217)';
-
-
---
--- Name: COLUMN currencies.book_id; Type: COMMENT; Schema: public; Owner: -
---
-
-COMMENT ON COLUMN public.currencies.book_id IS 'Known currencies are general and do not belong to any book (null); custom currencies belong to a specific book.';
+COMMENT ON COLUMN public.currencies.iso_code IS 'ISO-4217 Code (https://en.wikipedia.org/wiki/ISO_4217)';
 
 
 --
@@ -233,7 +225,7 @@ CREATE TABLE public.users (
     updated_at timestamp(6) without time zone NOT NULL,
     email character varying NOT NULL,
     display_name character varying NOT NULL,
-    password_digest character varying
+    password_digest character varying NOT NULL
 );
 
 
@@ -351,10 +343,10 @@ CREATE INDEX index_book_rights_on_book_id ON public.book_rights USING btree (boo
 
 
 --
--- Name: index_book_rights_on_book_id_and_user_id_and_right; Type: INDEX; Schema: public; Owner: -
+-- Name: index_book_rights_on_book_id_and_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_book_rights_on_book_id_and_user_id_and_right ON public.book_rights USING btree (book_id, user_id, "right");
+CREATE UNIQUE INDEX index_book_rights_on_book_id_and_user_id ON public.book_rights USING btree (book_id, user_id);
 
 
 --
@@ -379,17 +371,10 @@ CREATE INDEX index_books_on_owner_id ON public.books USING btree (owner_id);
 
 
 --
--- Name: index_currencies_on_book_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_currencies_on_iso_code; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_currencies_on_book_id ON public.currencies USING btree (book_id);
-
-
---
--- Name: index_currencies_on_code_and_book_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_currencies_on_code_and_book_id ON public.currencies USING btree (code, book_id);
+CREATE UNIQUE INDEX index_currencies_on_iso_code ON public.currencies USING btree (iso_code);
 
 
 --
@@ -468,6 +453,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190414223406'),
 ('20200212182458'),
 ('20200212183816'),
-('20200212184830');
+('20200212184830'),
+('20200317221432');
 
 

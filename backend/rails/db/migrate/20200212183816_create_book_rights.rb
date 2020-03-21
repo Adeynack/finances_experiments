@@ -6,9 +6,9 @@ class CreateBookRights < ActiveRecord::Migration[6.0]
       t.timestamps
       t.belongs_to :book, null: true
       t.belongs_to :user, null: false
-      t.column :right, :user_right_type, null: false
+      t.column :access, :user_access_level, null: false
 
-      t.index [:book_id, :user_id, :right], unique: true
+      t.index [:book_id, :user_id], unique: true
     end
   end
 end
