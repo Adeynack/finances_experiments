@@ -24,6 +24,13 @@ gem "active_record_extended" # extra ActiveRecords methods for PostgreSQL
 gem "browser"
 gem "bcrypt"
 
+# GraphQL
+gem "graphql"
+gem "graphql-rails_logger"
+gem "graphql-persisted_queries"
+gem "graphql-batch"
+gem "graphiql-rails"
+
 # Serialization
 gem "oj"
 gem "active_model_serializers"
