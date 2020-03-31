@@ -7,7 +7,7 @@ module Types
       Book.all
     end
 
-    field :book, BookType, null: true do
+    field :book, BookType, null: false do
       argument :id, ID, required: true
     end
     def book(id:)

@@ -11,7 +11,18 @@
 #
 
 joe:
-  id: ddda1a19-4a25-4a38-bffb-edf954a01ba8
   email: joe@foobar.com
   display_name: Joe
-  password_digest: '$2a$04$rXhcv3udr1fABbqDwY5oBOZde0aZNgR6OE26P6YVjYwaOcxkYIZM6' # foobar
+  password: foobar
+  # password_digest: '$2a$04$rXhcv3udr1fABbqDwY5oBOZde0aZNgR6OE26P6YVjYwaOcxkYIZM6'
+
+mary:
+  email: mary@heavens.bible
+  display_name: Saint Mary Mother of God
+  password: lovemyholybaby
+  # password_digest: '$2a$12$U7MQ6ROKVOCJfNimfN4GIeP1T4sVfljdK0SLWA0Awvgc0PyHkN3Y.'
+
+vlad:
+  email: impaler@cliche.ro
+  display_name: Vlad the Impaler
+  password: mrniceguy

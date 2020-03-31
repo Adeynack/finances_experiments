@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #  book_id    :bigint
 #  user_id    :bigint           not null
-#  right      :enum             not null
+#  access     :enum             not null
 #
 class BookRight < ApplicationRecord
   belongs_to :book
