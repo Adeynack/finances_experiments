@@ -136,8 +136,8 @@ CREATE TABLE public.book_rights (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    book_id bigint,
-    user_id bigint NOT NULL,
+    book_id uuid,
+    user_id uuid NOT NULL,
     access public.user_access_level NOT NULL
 );
 

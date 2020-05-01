@@ -13,7 +13,7 @@
 
 class Book < ApplicationRecord
   belongs_to :owner, class_name: "User"
-  has_many :book_rights
+  has_many :book_rights, dependent: :destroy
 
   validates :name, presence: true
   validates :owner, presence: true

@@ -24,7 +24,7 @@ RSpec.describe API::V1::SessionsController do
     it "creates a session when the email and password match" do
       freeze_time
 
-      post api_v1_session_path, params: { email: "joe@foobar.com", password: "foobar" }
+      post api_v1_session_path, params: { email: "joe@foobar.com", password: "joe" }
       expect(response).to have_http_status :created
 
       joe = users(:joe)

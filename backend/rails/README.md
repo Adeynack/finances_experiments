@@ -32,6 +32,18 @@ bin/update
 bin/rails test
 ```
 
+## Load development data from fixtures
+
+```bash
+    bin/rails db:fixtures:load
+```
+
+To _reset_ the database to only contain the fixtures:
+
+```bash
+    rails db:truncate_all db:fixtures:load
+```
+
 ## Start the Server
 
 ```bash

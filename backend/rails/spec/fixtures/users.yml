@@ -13,16 +13,17 @@
 joe:
   email: joe@foobar.com
   display_name: Joe
-  password: foobar
-  # password_digest: '$2a$04$rXhcv3udr1fABbqDwY5oBOZde0aZNgR6OE26P6YVjYwaOcxkYIZM6'
+  # password: joe
+  password_digest: '$2a$12$sZOoTUN1LQV6t0qI1OGX0.v2/s6UKk8XC8gsrajifATFW7OgZiV8q'
 
 mary:
   email: mary@heavens.bible
   display_name: Saint Mary Mother of God
-  password: lovemyholybaby
-  # password_digest: '$2a$12$U7MQ6ROKVOCJfNimfN4GIeP1T4sVfljdK0SLWA0Awvgc0PyHkN3Y.'
+  # password: mary
+  password_digest: '$2a$12$b3Mn1CDXyFvCwo6zoVttA..86LSj.8o2F7J7O80hUl929bOTJ0Zf2'
 
 vlad:
   email: impaler@cliche.ro
   display_name: Vlad the Impaler
-  password: mrniceguy
+  # password: vlad
+  password_digest: '$2a$12$acDj0arQqPsn.DCK.H3uBOCOBQMW4Wxu90prS5jn7COxSeY46zbIq'

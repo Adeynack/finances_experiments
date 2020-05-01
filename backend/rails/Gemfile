@@ -36,7 +36,6 @@ gem "oj"
 gem "active_model_serializers"
 
 # Seed Data
-gem "database_cleaner"
 gem "factory_bot_rails"
 gem "faker"
 
