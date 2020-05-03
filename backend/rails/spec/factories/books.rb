@@ -10,7 +10,6 @@
 #  name       :string           not null
 #  owner_id   :uuid             not null
 #
-
 FactoryBot.define do
   factory :book do
     name { Faker::Lorem.unique.sentences(number: 1)[0] }

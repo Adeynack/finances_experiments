@@ -49,17 +49,3 @@ To _reset_ the database to only contain the fixtures:
 ```bash
 bin/rails server
 ```
-
-# Notes for development
-
-## Libs to consider
-
-For JSON serialization
-- [cache-crispies](https://github.com/codenoble/cache-crispies)
-
-JSON-API Implementation
-- [fast_jsonapi](https://github.com/Netflix/fast_jsonapi)
-
-Batch Loading
-- [graphql-batch](https://github.com/Shopify/graphql-batch)
-- [Batch Loader](https://dev.to/usamaashraf/n1-queries-batch-loading--active-model-serializers-in-rails--3hkf)

@@ -10,7 +10,6 @@
 #  name       :string           not null
 #  owner_id   :uuid             not null
 #
-
 class Book < ApplicationRecord
   belongs_to :owner, class_name: "User"
   has_many :book_rights, dependent: :destroy

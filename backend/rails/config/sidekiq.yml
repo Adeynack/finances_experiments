@@ -1,6 +1,3 @@
 :queues:
   - default
 :schedule:
-  session_cleanup:
-    every: '1m'
-    class: SessionCleanupJob

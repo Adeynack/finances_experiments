@@ -25,12 +25,5 @@ module FinancesRails
     config.api_only = true
     config.active_record.schema_format = :sql
     config.active_job.queue_adaptor = :sidekiq
-
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins "*"
-        resource "*", headers: :any, methods: :any, max_age: 1728000
-      end
-    end
   end
 end

@@ -11,7 +11,6 @@
 #  display_name    :string           not null
 #  password_digest :string           not null
 #
-
 class User < ApplicationRecord
   has_secure_password validations: false
 

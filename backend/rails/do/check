@@ -1,13 +1,4 @@
 #!/bin/bash
-#
-# To run in parallel:
-# (echo npm run lint-api & echo rubocop -a & echo rspec) | parallel --halt now,fail=1 --tag
-#
-echo "" && \
-
-echo "🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸" && \
-echo "▶️   Linting OpenAPI Specification" && \
-yarn run lint-api && \
 echo "" && \
 
 echo "🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸" && \
@@ -16,8 +7,9 @@ echo "" && \
 echo "➖ Drop database" && \
 bundle exec rails db:drop && \
 echo "" && \
-echo "➖ Delete db/schema.rb" && \
-rm -f -v db/scshema.rb && 
+echo "➖ Delete db/schema.rb and db/structure.sql" && \
+rm -f -v db/schema.rb && 
+rm -f -v db/structure.sql && 
 echo "" && \
 echo "➖ Create database" && \
 bundle exec rails db:create && \
@@ -25,8 +17,8 @@ echo "" && \
 echo "➖ Migrate database" && \
 bundle exec rails db:migrate && \
 echo "" && \
-echo "➖ Seed data" && \
-bundle exec rails db:seed && \
+echo "➖ Loading fixture data in development database" && \
+bundle exec rails db:fixtures:load && \
 echo "" \
 
 echo "🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸" && \

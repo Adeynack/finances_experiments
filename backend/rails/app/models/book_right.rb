@@ -7,8 +7,8 @@
 #  id         :uuid             not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  book_id    :bigint
-#  user_id    :bigint           not null
+#  book_id    :uuid
+#  user_id    :uuid             not null
 #  access     :enum             not null
 #
 class BookRight < ApplicationRecord

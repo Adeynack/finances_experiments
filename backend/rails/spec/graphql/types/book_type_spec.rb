@@ -21,8 +21,8 @@ RSpec.describe Types::BookType do
       FinancesRailsSchema.execute(query).as_json
     end
 
-    fit "returns all books" do
-      ap books
+    xit "returns all books" do
+      ap books # TODO: Do something with this test...
     end
   end
 end

@@ -201,21 +201,6 @@ CREATE TABLE public.schema_migrations (
 
 
 --
--- Name: sessions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.sessions (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    user_id uuid NOT NULL,
-    last_active_at timestamp without time zone,
-    user_agent character varying,
-    ip character varying
-);
-
-
---
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -275,14 +260,6 @@ ALTER TABLE ONLY public.currencies
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
-
-
---
--- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.sessions
-    ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
 
 
 --
@@ -378,20 +355,6 @@ CREATE UNIQUE INDEX index_currencies_on_iso_code ON public.currencies USING btre
 
 
 --
--- Name: index_sessions_on_last_active_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_sessions_on_last_active_at ON public.sessions USING btree (last_active_at);
-
-
---
--- Name: index_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_sessions_on_user_id ON public.sessions USING btree (user_id);
-
-
---
 -- Name: index_users_on_display_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -453,7 +416,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190414223406'),
 ('20200212182458'),
 ('20200212183816'),
-('20200212184830'),
 ('20200317221432');
 
 

@@ -12,7 +12,6 @@
 #  prefix     :string
 #  suffix     :string
 #
-
 class Currency < ApplicationRecord
   belongs_to :book, optional: true
 

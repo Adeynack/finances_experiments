@@ -17,7 +17,6 @@
 #  initial_balance :integer
 #  active          :boolean          default("true")
 #
-
 class Account < ApplicationRecord
   self.inheritance_column = nil
 

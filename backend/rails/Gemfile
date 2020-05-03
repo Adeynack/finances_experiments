@@ -11,18 +11,19 @@ gem "puma"
 gem "pg"
 
 # Extensions
-gem "sidekiq"
-gem "sidekiq-scheduler"
 gem "dotenv-rails"
 gem "rails-i18n"
 gem "kaminari"
-gem "rack-cors", require: "rack/cors"
 gem "bootsnap", require: false
-gem "friendly_id"
 gem "pundit"
-gem "active_record_extended" # extra ActiveRecords methods for PostgreSQL
-gem "browser"
+gem "active_record_extended"
 gem "bcrypt"
+gem "oj"
+gem "friendly_id"
+
+# Jobs
+gem "sidekiq"
+gem "sidekiq-scheduler"
 
 # GraphQL
 gem "graphql"
@@ -30,10 +31,6 @@ gem "graphql-rails_logger"
 gem "graphql-persisted_queries"
 gem "graphql-batch"
 gem "graphiql-rails"
-
-# Serialization
-gem "oj"
-gem "active_model_serializers"
 
 # Seed Data
 gem "factory_bot_rails"
@@ -43,23 +40,28 @@ gem "faker"
 gem "pry-rails"
 gem "awesome_print"
 
-# Money
+# Geography & Money
+gem "countries"
 gem "money", "~> 6.13.7"
 gem "money-rails", "~> 1.13.3"
 
 group :development, :test do
+  gem "rspec-rails"
+
   gem "rubocop"
   gem "rubocop-rails"
   gem "rubocop-rspec"
   gem "rubocop-rspec-focused"
   gem "rubocop-faker"
   gem "rubocop-performance"
-  gem "rspec-rails"
+
   gem "guard"
   gem "guard-rspec", require: false
+
   gem "byebug"
   gem "pry-doc"
   gem "pry-stack_explorer"
+
   gem "bullet"
   gem "spring"
   gem "spring-watcher-listen"

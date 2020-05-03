@@ -11,7 +11,6 @@
 #  display_name    :string           not null
 #  password_digest :string           not null
 #
-
 FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
